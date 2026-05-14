@@ -3,18 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NF404301</title>
+  <title>NF404301 | 个人网站</title>
   <style>
     * {
       box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #e8ebf2;
+      --surface: #e8ebf2;
+      --text: #2f3347;
+      --muted: #5c637d;
+      --line: #d3dae7;
+      --shadow: #b9bfcc;
+      --light: #ffffff;
+      --accent: #3d6fb6;
+      --accent-soft: #dce8f8;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
       font-family: Arial, "Microsoft YaHei", sans-serif;
-      color: #31344b;
-      background: #e6e7ee;
+      color: var(--text);
+      background: var(--bg);
     }
 
     a {
@@ -32,10 +44,10 @@
     }
 
     .card {
-      background: #e6e7ee;
-      border: 1px solid #d1d9e6;
-      border-radius: 16px;
-      box-shadow: 8px 8px 16px #b8b9be, -8px -8px 16px #ffffff;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 8px 8px 16px var(--shadow), -8px -8px 16px var(--light);
     }
 
     .sidebar {
@@ -56,7 +68,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+      box-shadow: 6px 6px 12px var(--shadow), -6px -6px 12px var(--light);
     }
 
     .profile h1 {
@@ -67,7 +79,7 @@
     .profile p {
       margin: 0 0 20px;
       line-height: 1.7;
-      color: #525480;
+      color: var(--muted);
     }
 
     .nav {
@@ -77,16 +89,17 @@
     .nav button {
       width: 100%;
       display: block;
-      border: 1px solid #d1d9e6;
-      background: #e6e7ee;
-      color: #31344b;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
       padding: 14px 16px;
       margin-bottom: 12px;
-      border-radius: 12px;
+      border-radius: 10px;
       text-align: left;
       font-size: 16px;
       cursor: pointer;
-      box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff;
+      box-shadow: 4px 4px 8px var(--shadow), -4px -4px 8px var(--light);
+      transition: color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .nav button:last-child {
@@ -95,7 +108,14 @@
 
     .nav button.active,
     .nav button:hover {
-      box-shadow: inset 3px 3px 6px #b8b9be, inset -3px -3px 6px #ffffff;
+      color: var(--accent);
+      box-shadow: inset 3px 3px 6px var(--shadow), inset -3px -3px 6px var(--light);
+    }
+
+    .nav button:focus-visible,
+    .button:focus-visible {
+      outline: 3px solid var(--accent-soft);
+      outline-offset: 3px;
     }
 
     .content {
@@ -114,8 +134,9 @@
     .eyebrow {
       margin: 0 0 16px;
       font-size: 13px;
-      letter-spacing: 0;
-      color: #667;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
     }
 
     h2 {
@@ -132,25 +153,25 @@
     p {
       font-size: 17px;
       line-height: 1.8;
-      color: #4a4d6a;
+      color: var(--muted);
     }
 
     .lead {
       font-size: 20px;
-      color: #3f425c;
+      color: #40465f;
     }
 
     .projects {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
     }
 
     .project {
       padding: 24px;
-      border-radius: 14px;
-      border: 1px solid #d1d9e6;
-      box-shadow: 5px 5px 10px #b8b9be, -5px -5px 10px #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      box-shadow: 5px 5px 10px var(--shadow), -5px -5px 10px var(--light);
     }
 
     .tags {
@@ -162,18 +183,25 @@
     .tag {
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid #d1d9e6;
-      box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #ffffff;
+      border: 1px solid var(--line);
+      color: #3d445e;
+      box-shadow: 3px 3px 6px var(--shadow), -3px -3px 6px var(--light);
     }
 
     .button {
       display: inline-block;
       padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid #d1d9e6;
-      box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      box-shadow: 4px 4px 8px var(--shadow), -4px -4px 8px var(--light);
       margin-right: 12px;
       margin-bottom: 12px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      box-shadow: inset 3px 3px 6px var(--shadow), inset -3px -3px 6px var(--light);
     }
 
     @media (max-width: 850px) {
@@ -198,23 +226,47 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 520px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding: 20px 0;
+      }
+
+      .profile,
+      .content {
+        padding: 22px;
+      }
+
+      .nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .nav button {
+        margin-bottom: 0;
+        text-align: center;
+        padding: 12px 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <main class="page">
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="个人资料与导航">
       <section class="card profile">
-        <img class="avatar" src="avatar.jpg" alt="NF404301" />
+        <img class="avatar" src="avatar.jpg" alt="NF404301 的头像" />
         <h1>NF404301</h1>
         <p>前端学习者<br />独立创作者</p>
         <a class="button" href="https://github.com/NF404301" target="_blank" rel="noopener">GitHub</a>
       </section>
 
-      <nav class="card nav">
-        <button class="active" data-tab="about">关于我</button>
-        <button data-tab="projects">项目作品</button>
-        <button data-tab="skills">技能栈</button>
-        <button data-tab="contact">联系方式</button>
+      <nav class="card nav" aria-label="页面栏目">
+        <button class="active" type="button" data-tab="about" aria-selected="true">关于我</button>
+        <button type="button" data-tab="projects" aria-selected="false">项目作品</button>
+        <button type="button" data-tab="skills" aria-selected="false">技能栈</button>
+        <button type="button" data-tab="contact" aria-selected="false">联系方式</button>
       </nav>
     </aside>
 
@@ -223,7 +275,7 @@
         <p class="eyebrow">Personal Website</p>
         <h2>你好，我是念六。</h2>
         <p class="lead">
-          我正在学习和构建简洁、实用、有质感的网页体验。
+          我正在学习并构建简洁、实用、有质感的网页体验。
         </p>
         <p>
           这个网站是我的个人空间，用来展示项目、记录想法和整理成长过程。
@@ -236,19 +288,19 @@
         <div class="projects">
           <article class="project">
             <h3>个人主页</h3>
-            <p>一个左侧选项卡、右侧内容切换的个人主页。</p>
+            <p>一个左侧选项卡、右侧内容切换的个人主页，用来沉淀作品和学习记录。</p>
           </article>
           <article class="project">
             <h3>网页工具</h3>
-            <p>计划制作一些浏览器内可用的小工具。</p>
+            <p>计划制作一些浏览器内可用的小工具，优先解决真实使用中的小问题。</p>
           </article>
           <article class="project">
             <h3>设计实验</h3>
-            <p>尝试不同的 UI 风格、布局和交互细节。</p>
+            <p>尝试不同的 UI 风格、布局方式和交互细节，训练自己的审美判断。</p>
           </article>
           <article class="project">
             <h3>学习记录</h3>
-            <p>记录前端、GitHub、Vercel 和网站搭建过程。</p>
+            <p>记录前端、GitHub、Vercel 和网站搭建过程，把零散经验整理成清晰笔记。</p>
           </article>
         </div>
       </div>
@@ -284,10 +336,14 @@
       button.addEventListener("click", () => {
         const target = button.dataset.tab;
 
-        buttons.forEach((item) => item.classList.remove("active"));
+        buttons.forEach((item) => {
+          item.classList.remove("active");
+          item.setAttribute("aria-selected", "false");
+        });
         tabs.forEach((tab) => tab.classList.remove("active"));
 
         button.classList.add("active");
+        button.setAttribute("aria-selected", "true");
         document.getElementById(target).classList.add("active");
       });
     });
