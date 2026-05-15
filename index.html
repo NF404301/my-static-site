@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NF404301 | 个人网站</title>
+  <title>NF404301 | GY念六</title>
   <style>
     * {
       box-sizing: border-box;
@@ -18,7 +18,9 @@
       --shadow: #b9bfcc;
       --light: #ffffff;
       --accent: #3d6fb6;
+      --accent-strong: #2c5d9d;
       --accent-soft: #dce8f8;
+      --warm: #8f6545;
     }
 
     body {
@@ -35,7 +37,7 @@
     }
 
     .page {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
       padding: 32px 0;
       display: grid;
@@ -99,7 +101,7 @@
       font-size: 16px;
       cursor: pointer;
       box-shadow: 4px 4px 8px var(--shadow), -4px -4px 8px var(--light);
-      transition: color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      transition: color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .nav button:last-child {
@@ -113,13 +115,14 @@
     }
 
     .nav button:focus-visible,
-    .button:focus-visible {
+    .button:focus-visible,
+    .link-card:focus-visible {
       outline: 3px solid var(--accent-soft);
       outline-offset: 3px;
     }
 
     .content {
-      min-height: 650px;
+      min-height: 680px;
       padding: 48px;
     }
 
@@ -141,13 +144,13 @@
 
     h2 {
       margin: 0 0 24px;
-      font-size: 44px;
+      font-size: 42px;
       line-height: 1.15;
     }
 
     h3 {
-      margin: 0 0 12px;
-      font-size: 22px;
+      margin: 0 0 10px;
+      font-size: 21px;
     }
 
     p {
@@ -161,30 +164,75 @@
       color: #40465f;
     }
 
-    .projects {
+    .section-stack {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
+      gap: 28px;
     }
 
-    .project {
-      padding: 24px;
+    .block {
+      display: grid;
+      gap: 16px;
+    }
+
+    .block-title {
+      margin: 0;
+      color: var(--warm);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .link-card {
+      display: flex;
+      min-height: 150px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
       border-radius: 12px;
       border: 1px solid var(--line);
       box-shadow: 5px 5px 10px var(--shadow), -5px -5px 10px var(--light);
+      transition: color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .tags {
+    .link-card:hover {
+      color: var(--accent-strong);
+      box-shadow: inset 3px 3px 6px var(--shadow), inset -3px -3px 6px var(--light);
+    }
+
+    .link-title {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .link-desc {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .meta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
+      margin-top: 16px;
     }
 
+    .meta-pill,
     .tag {
-      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
       color: #3d445e;
+      font-size: 14px;
       box-shadow: 3px 3px 6px var(--shadow), -3px -3px 6px var(--light);
     }
 
@@ -197,14 +245,42 @@
       box-shadow: 4px 4px 8px var(--shadow), -4px -4px 8px var(--light);
       margin-right: 12px;
       margin-bottom: 12px;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      transition: box-shadow 0.2s ease;
     }
 
     .button:hover {
       box-shadow: inset 3px 3px 6px var(--shadow), inset -3px -3px 6px var(--light);
     }
 
-    @media (max-width: 850px) {
+    .contact-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-item:last-child {
+      border-bottom: 0;
+    }
+
+    .contact-label {
+      color: var(--warm);
+      font-weight: 700;
+    }
+
+    .contact-value {
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 900px) {
       .page {
         grid-template-columns: 1fr;
       }
@@ -221,15 +297,11 @@
       h2 {
         font-size: 34px;
       }
-
-      .projects {
-        grid-template-columns: 1fr;
-      }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 640px) {
       .page {
-        width: min(100% - 20px, 1120px);
+        width: min(100% - 20px, 1160px);
         padding: 20px 0;
       }
 
@@ -249,6 +321,15 @@
         text-align: center;
         padding: 12px 10px;
       }
+
+      .link-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
     }
   </style>
 </head>
@@ -257,73 +338,349 @@
     <aside class="sidebar" aria-label="个人资料与导航">
       <section class="card profile">
         <img class="avatar" src="avatar.jpg" alt="NF404301 的头像" />
-        <h1>NF404301</h1>
-        <p>前端学习者<br />独立创作者</p>
-        <a class="button" href="https://github.com/NF404301" target="_blank" rel="noopener">GitHub</a>
+        <h1>GY念六</h1>
+        <p>科技数码观望者<br />NF404301</p>
+        <a class="button" href="https://space.bilibili.com/384557462" target="_blank" rel="noopener">B站主页</a>
+        <a class="button" href="https://t.me/GYWebWord" target="_blank" rel="noopener">TG频道</a>
+        <a class="button" href="https://xhslink.com/m/5Ga5TY5xwTc" target="_blank" rel="noopener">小红书主页</a>
       </section>
 
       <nav class="card nav" aria-label="页面栏目">
-        <button class="active" type="button" data-tab="about" aria-selected="true">关于我</button>
-        <button type="button" data-tab="projects" aria-selected="false">项目作品</button>
-        <button type="button" data-tab="skills" aria-selected="false">技能栈</button>
+        <button class="active" type="button" data-tab="about" aria-selected="true">首页</button>
+        <button type="button" data-tab="platforms" aria-selected="false">内容平台</button>
+        <button type="button" data-tab="tutorials" aria-selected="false">教程视频</button>
+        <button type="button" data-tab="resources" aria-selected="false">资料链接</button>
+        <button type="button" data-tab="apple" aria-selected="false">Apple 相关</button>
         <button type="button" data-tab="contact" aria-selected="false">联系方式</button>
       </nav>
     </aside>
 
     <section class="card content">
       <div class="tab active" id="about">
-        <p class="eyebrow">Personal Website</p>
-        <h2>你好，我是念六。</h2>
+        <p class="eyebrow">Personal Hub</p>
+        <h2>你好，我是 GY念六。</h2>
         <p class="lead">
-          我正在学习并构建简洁、实用、有质感的网页体验。
+          这里集中整理我的内容平台、资料入口、Apple 相关资源和联系方式。
         </p>
-        <p>
-          这个网站是我的个人空间，用来展示项目、记录想法和整理成长过程。
-          我喜欢前端开发、界面设计、静态网站部署，以及各种能提升效率的小工具。
-        </p>
-      </div>
-
-      <div class="tab" id="projects">
-        <h2>项目作品</h2>
-        <div class="projects">
-          <article class="project">
-            <h3>个人主页</h3>
-            <p>一个左侧选项卡、右侧内容切换的个人主页，用来沉淀作品和学习记录。</p>
-          </article>
-          <article class="project">
-            <h3>网页工具</h3>
-            <p>计划制作一些浏览器内可用的小工具，优先解决真实使用中的小问题。</p>
-          </article>
-          <article class="project">
-            <h3>设计实验</h3>
-            <p>尝试不同的 UI 风格、布局方式和交互细节，训练自己的审美判断。</p>
-          </article>
-          <article class="project">
-            <h3>学习记录</h3>
-            <p>记录前端、GitHub、Vercel 和网站搭建过程，把零散经验整理成清晰笔记。</p>
-          </article>
+        <div class="link-grid" aria-label="常用入口">
+          <a class="link-card" href="https://b23.tv/vrQscto" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">哔哩哔哩个人空间</span>
+              <span class="link-desc">视频内容与动态更新入口。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">内容平台</span></span>
+          </a>
+          <a class="link-card" href="https://t.me/GYWebWord" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">Telegram 频道</span>
+              <span class="link-desc">用于发布资源更新、文档入口和后续整理内容。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">频道</span></span>
+          </a>
+          <a class="link-card" href="https://space.bilibili.com/384557462" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">B站教程视频</span>
+              <span class="link-desc">iOS、Apple、快捷指令和工具体验内容合集。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">教程入口</span></span>
+          </a>
+          <a class="link-card" href="https://www.123865.com/s/GCi5Vv-aRWHv?提取码:A4uP" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">Apple Watch 配对</span>
+              <span class="link-desc">123 网盘资料链接，提取码已放在卡片下方。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">提取码 A4uP</span></span>
+          </a>
+          <a class="link-card" href="https://bh9527.pages.dev/" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">天翼云盘资源编号 9527</span>
+              <span class="link-desc">天翼相关资源的网页入口。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">资料入口</span></span>
+          </a>
         </div>
       </div>
 
-      <div class="tab" id="skills">
-        <h2>技能栈</h2>
-        <p class="lead">当前主要关注网页基础、静态网站部署和个人项目开发。</p>
-        <div class="tags">
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">GitHub</span>
-          <span class="tag">Vercel</span>
-          <span class="tag">响应式布局</span>
-          <span class="tag">UI 设计</span>
+      <div class="tab" id="platforms">
+        <h2>内容平台</h2>
+        <p class="lead">三个主要内容入口分开放置，方便按平台查看和关注。</p>
+        <div class="link-grid">
+          <a class="link-card" href="https://b23.tv/vrQscto" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">GY念六的个人空间</span>
+              <span class="link-desc">哔哩哔哩主页，适合查看视频内容、动态和个人更新。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">Bilibili</span></span>
+          </a>
+          <a class="link-card" href="https://t.me/+fT1YX18RVq9hYzZl" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">TG 电报群</span>
+              <span class="link-desc">交流讨论入口，适合反馈问题、看群内补充信息。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">Telegram 群</span></span>
+          </a>
+          <a class="link-card" href="https://t.me/GYWebWord" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">TG 电报频道</span>
+              <span class="link-desc">资源发布和内容更新入口，适合只接收通知。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">Telegram 频道</span></span>
+          </a>
+          <div class="link-card" tabindex="0">
+            <span>
+              <span class="link-title">QQ 群聊</span>
+              <span class="link-desc">GY念六-1群：346728469。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">群号 346728469</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab" id="tutorials">
+        <h2>教程视频</h2>
+        <p class="lead">从 B 站公开搜索索引整理出的教程入口，适合按主题快速找到对应内容。</p>
+        <div class="section-stack">
+          <section class="block">
+            <h3 class="block-title">iOS 快捷指令</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://www.bilibili.com/video/BV1dR4y1m7qH/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">充电时间助手</span>
+                  <span class="link-desc">查看充电时长和使用耗电的 iOS 快捷指令。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">快捷指令</span><span class="meta-pill">iOS</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1Nu4y1f7g2/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">App Store 价格查询</span>
+                  <span class="link-desc">查询 App 价格和内购信息的 iOS 快捷指令。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">App Store</span><span class="meta-pill">快捷指令</span></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="block">
+            <h3 class="block-title">Apple 与账号</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://www.bilibili.com/video/BV1Nd4y177Rs/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">已停用 Apple ID 找回</span>
+                  <span class="link-desc">两分钟找回已停用 Apple ID 的演示教程。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">Apple ID</span><span class="meta-pill">账号</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1uP41137nH/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">土区 iCloud 200G</span>
+                  <span class="link-desc">土区 iCloud 200G 上车经验分享。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">iCloud</span><span class="meta-pill">Apple</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1Ky42167nZ/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">App Store 充值优惠</span>
+                  <span class="link-desc">微信支付 App Store 充值优惠活动说明。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">App Store</span><span class="meta-pill">优惠</span></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="block">
+            <h3 class="block-title">工具与浏览器</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://www.bilibili.com/video/BV1Ux4y1j7o7/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">iOS Safari 油猴脚本</span>
+                  <span class="link-desc">Safari 浏览器脚本与翻译插件演示。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">Safari</span><span class="meta-pill">脚本</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1YN411m7Yi/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">沉浸式翻译</span>
+                  <span class="link-desc">全平台翻译工具体验，支持 iOS Safari。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">翻译</span><span class="meta-pill">iOS</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1EV411K7XZ/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">iOS 剪贴板 App Pin</span>
+                  <span class="link-desc">键盘内使用、自定义动作等剪贴板功能体验。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">App</span><span class="meta-pill">工具</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1Yg4y1A76L/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">B站搜索 AI 助手体验</span>
+                  <span class="link-desc">Bilibili 搜索 AI 助手功能体验。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">AI</span><span class="meta-pill">体验</span></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="block">
+            <h3 class="block-title">签名、双开与越狱</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://www.bilibili.com/video/BV1Ye4y117EB/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">iPhone SE 越狱体验</span>
+                  <span class="link-desc">越狱体验和插件安装相关内容。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">越狱</span><span class="meta-pill">插件</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/video/BV1HX4y1j7Y7/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">iOS 微信双开</span>
+                  <span class="link-desc">一部手机两个微信账号，轻松切换。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">微信</span><span class="meta-pill">双开</span></span>
+              </a>
+              <a class="link-card" href="https://www.bilibili.com/read/cv21600232" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">AltStore 自签名教程</span>
+                  <span class="link-desc">AltStore 安装、续签和常见问题整理。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">专栏</span><span class="meta-pill">自签名</span></span>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="tab" id="resources">
+        <h2>资料链接</h2>
+        <p class="lead">网盘、文档和订阅链接集中放在这里。123 网盘链接可复制到网页打开。</p>
+        <div class="section-stack">
+          <section class="block">
+            <h3 class="block-title">123 网盘</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://www.123865.com/s/GCi5Vv-aRWHv?提取码:A4uP" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">Apple Watch 配对</span>
+                  <span class="link-desc">123 网盘资源入口。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">提取码 A4uP</span></span>
+              </a>
+              <a class="link-card" href="https://www.123865.com/s/GCi5Vv-BRWHv?提取码:OT3I" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">QQ 空间获取</span>
+                  <span class="link-desc">123 网盘资源入口。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">提取码 OT3I</span></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="block">
+            <h3 class="block-title">天翼云盘资源</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://bh9527.pages.dev/" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">编号 9527</span>
+                  <span class="link-desc">天翼云盘资源主页。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">网页入口</span></span>
+              </a>
+              <a class="link-card" href="https://www.kdocs.cn/l/coWV4ta9zA9K" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">夏天文档</span>
+                  <span class="link-desc">金山文档资料入口。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">KDocs</span></span>
+              </a>
+              <a class="link-card" href="https://kdocs.cn/l/cvzb2UmnEshK" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">乔克文档</span>
+                  <span class="link-desc">金山文档资料入口。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">KDocs</span></span>
+              </a>
+              <a class="link-card" href="https://kdocs.cn/l/cuDbV2eyZ0Fl" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">北北文档</span>
+                  <span class="link-desc">金山文档资料入口。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">KDocs</span></span>
+              </a>
+              <a class="link-card" href="https://kdocs.cn/l/cjKi7cS9gpF8" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">同学文档</span>
+                  <span class="link-desc">金山文档资料入口。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">KDocs</span></span>
+              </a>
+              <a class="link-card" href="https://app.follow.is/share/lists/71853151480300544" target="_blank" rel="noopener">
+                <span>
+                  <span class="link-title">Follow 软件订阅</span>
+                  <span class="link-desc">天翼云盘资源订阅链接。</span>
+                </span>
+                <span class="meta-row"><span class="meta-pill">订阅链接</span></span>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="tab" id="apple">
+        <h2>Apple 相关</h2>
+        <p class="lead">Apple Watch 配对、AppleTV 应用和直播测试链接统一放在这里。</p>
+        <div class="link-grid">
+          <a class="link-card" href="https://www.123865.com/s/GCi5Vv-aRWHv?提取码:A4uP" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">Apple Watch 配对</span>
+              <span class="link-desc">123 网盘链接，可复制到网页打开。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">提取码 A4uP</span></span>
+          </a>
+          <a class="link-card" href="https://github.com/bitxeno/awesome-appletv" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">AppleTV 应用合集</span>
+              <span class="link-desc">GitHub 上的 AppleTV 应用资源列表。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">GitHub</span></span>
+          </a>
+          <a class="link-card" href="https://testflight.apple.com/join/2oZuwSHJ" target="_blank" rel="noopener">
+            <span>
+              <span class="link-title">AppleTV 直播</span>
+              <span class="link-desc">TestFlight 测试链接。</span>
+            </span>
+            <span class="meta-row"><span class="meta-pill">TestFlight</span></span>
+          </a>
         </div>
       </div>
 
       <div class="tab" id="contact">
         <h2>联系方式</h2>
-        <p class="lead">你可以通过下面的方式找到我。</p>
-        <a class="button" href="https://github.com/NF404301" target="_blank" rel="noopener">GitHub</a>
-        <a class="button" href="mailto:your-email@example.com">邮箱</a>
+        <p class="lead">联系、交流和关注入口按平台归类，常用方式都放在这里。</p>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span class="contact-label">哔哩哔哩</span>
+            <a class="contact-value" href="https://space.bilibili.com/384557462" target="_blank" rel="noopener">GY念六的个人空间</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">QQ 群</span>
+            <span class="contact-value">GY念六-1群：346728469</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Telegram 群</span>
+            <a class="contact-value" href="https://t.me/+fT1YX18RVq9hYzZl" target="_blank" rel="noopener">https://t.me/+fT1YX18RVq9hYzZl</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Telegram 频道</span>
+            <a class="contact-value" href="https://t.me/GYWebWord" target="_blank" rel="noopener">https://t.me/GYWebWord</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">微信</span>
+            <span class="contact-value">GYNL2639</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">GitHub</span>
+            <a class="contact-value" href="https://github.com/NF404301" target="_blank" rel="noopener">https://github.com/NF404301</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
