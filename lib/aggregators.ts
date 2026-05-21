@@ -7,6 +7,7 @@ export type VideoItem = {
   href: string;
   publishedAt: string;
   tag: string;
+  views?: string;
 };
 
 export type RepoItem = {
@@ -50,6 +51,12 @@ function formatDate(seconds?: number) {
   }).format(new Date(seconds * 1000));
 }
 
+function formatCount(count?: number) {
+  if (!count) return undefined;
+  if (count >= 10000) return `${(count / 10000).toFixed(count >= 100000 ? 0 : 1)} 万播放`;
+  return `${count} 播放`;
+}
+
 export async function getBilibiliVideos(): Promise<VideoItem[]> {
   try {
     const headers = {
@@ -74,7 +81,7 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
     const params = {
       keyword: "",
       mid: 384557462,
-      order: "pubdate",
+      order: "click",
       order_avoided: true,
       platform: "web",
       pn: 1,
@@ -99,7 +106,8 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
       description: item.description || "来自 Bilibili 的最新公开内容。",
       href: `https://www.bilibili.com/video/${item.bvid}/`,
       publishedAt: formatDate(item.created),
-      tag: "Bilibili"
+      tag: "Bilibili",
+      views: formatCount(item.play)
     }));
   } catch {
     return fallbackVideos;

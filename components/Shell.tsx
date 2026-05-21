@@ -56,6 +56,12 @@ export function Footer() {
           <Link href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-signal-blue">
             GitHub
           </Link>
+          <Link href={site.blog} target="_blank" rel="noopener noreferrer" className="hover:text-signal-blue">
+            Blog
+          </Link>
+          <Link href={site.alist} target="_blank" rel="noopener noreferrer" className="hover:text-signal-blue">
+            Alist
+          </Link>
           <Link href={site.telegramChannel} target="_blank" rel="noopener noreferrer" className="hover:text-signal-blue">
             Telegram
           </Link>

@@ -30,6 +30,18 @@ export default function ApplePage() {
           description: "TestFlight 测试入口。",
           href: "https://testflight.apple.com/join/2oZuwSHJ",
           label: "TestFlight"
+        },
+        {
+          title: "Switchr",
+          description: "App Store 国家和地区切换工具，适合查询不同区服应用状态。",
+          href: "http://switchr.imagility.io/",
+          label: "推荐链接"
+        },
+        {
+          title: "URL Scheme 大全",
+          description: "iOS URL Scheme 查询资料，适合快捷指令和自动化折腾时参考。",
+          href: "https://www.ydzms.com/archives/58/",
+          label: "推荐链接"
         }
       ]}
     />

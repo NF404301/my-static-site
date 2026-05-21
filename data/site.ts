@@ -1,5 +1,4 @@
 import {
-  Bot,
   Boxes,
   Cloud,
   Code2,
@@ -14,8 +13,7 @@ import {
   Server,
   Smartphone,
   Sparkles,
-  TestTube2,
-  Wand2
+  TestTube2
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -31,8 +29,9 @@ export type MatrixItem = {
 export type ProjectItem = {
   title: string;
   description: string;
-  href: string;
-  status: string;
+  href?: string;
+  status?: string;
+  action?: string;
   icon: LucideIcon;
 };
 
@@ -61,7 +60,9 @@ export const site = {
   xiaohongshu: "https://xhslink.com/m/5Ga5TY5xwTc",
   telegramChannel: "https://t.me/GYWebWord",
   telegramGroup: "https://t.me/+fT1YX18RVq9hYzZl",
-  github: "https://github.com/NF404301"
+  github: "https://github.com/NF404301",
+  alist: "http://13.70.6.48:5244/",
+  blog: "https://wongtq.blogspot.com/"
 };
 
 export const navigation = [
@@ -111,30 +112,24 @@ export const projectZones: ProjectItem[] = [
   {
     title: "Apple 专区",
     description: "Apple TV、TestFlight、iOS 资源、TrollStore 与常用工具索引。",
-    href: "https://apple.000919.xyz",
-    status: "apple.000919.xyz",
+    href: "/apple",
+    status: "精选网站",
+    action: "进入专区",
     icon: Smartphone
   },
   {
     title: "Alist 网盘",
     description: "长期沉淀的资料库入口，面向文档、工具包和资源站聚合。",
-    href: "https://pan.000919.xyz",
-    status: "pan.000919.xyz",
+    href: site.alist,
+    status: "Private Drive",
     icon: Cloud
   },
   {
-    title: "AI 实验室",
-    description: "AI 工具体验、提示词工作流、自动化代理与内容生产实验。",
-    href: "https://lab.000919.xyz",
-    status: "lab.000919.xyz",
-    icon: Bot
-  },
-  {
-    title: "自动化工具",
-    description: "VPS、部署、脚本、定时任务和跨平台效率工具的实验场。",
-    href: "#lab",
-    status: "building",
-    icon: Wand2
+    title: "Blogspot Blog",
+    description: "Personal blog archive and longer-form posts hosted on Blogspot.",
+    href: site.blog,
+    status: "wongtq.blogspot.com",
+    icon: Globe2
   }
 ];
 

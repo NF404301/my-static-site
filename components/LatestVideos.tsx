@@ -9,8 +9,8 @@ export function LatestVideos({ videos }: { videos: VideoItem[] }) {
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <SectionHeader
           eyebrow="Latest Signal"
-          title="最近更新自动汇入首页。"
-          description="优先拉取 B站公开列表；如果接口受限，页面会展示精选教程作为降级内容。"
+          title="高播放内容优先展示。"
+          description="优先展示 B站公开列表里播放量更高的内容；接口受限时保留精选教程作为降级内容。"
         />
         <div className="grid gap-4">
           {videos.map((video, index) => (
@@ -30,6 +30,7 @@ export function LatestVideos({ videos }: { videos: VideoItem[] }) {
                     {video.tag}
                   </span>
                   <span className="text-xs text-base-soft">{video.publishedAt}</span>
+                  {video.views ? <span className="text-xs text-base-soft">{video.views}</span> : null}
                 </div>
                 <h3 className="mt-2 text-lg font-semibold text-base-ink">{video.title}</h3>
                 <p className="mt-1 text-sm leading-6 text-base-soft">{video.description}</p>
