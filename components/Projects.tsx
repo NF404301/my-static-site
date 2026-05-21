@@ -1,10 +1,61 @@
 import Link from "next/link";
-import { ArrowUpRight, GitFork, Image as ImageIcon, Newspaper, Star } from "lucide-react";
+import { ArrowUpRight, CalendarDays, GitFork, Image as ImageIcon, Star } from "lucide-react";
 import { principles, projectZones } from "@/data/site";
 import type { RepoItem } from "@/lib/aggregators";
 import { SectionHeader } from "@/components/SectionHeader";
 
+function getTimeProgress() {
+  const now = new Date();
+  const dayOfWeek = now.getDay() || 7;
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / 86400000) + 1;
+  const daysInYear = new Date(now.getFullYear(), 1, 29).getMonth() === 1 ? 366 : 365;
+
+  return [
+    {
+      label: "本周",
+      current: dayOfWeek,
+      total: 7,
+      detail: `已过 ${dayOfWeek} / 7 天`
+    },
+    {
+      label: "本月",
+      current: now.getDate(),
+      total: daysInMonth,
+      detail: `已过 ${now.getDate()} / ${daysInMonth} 天`
+    },
+    {
+      label: "今年",
+      current: dayOfYear,
+      total: daysInYear,
+      detail: `已过 ${dayOfYear} / ${daysInYear} 天`
+    }
+  ];
+}
+
+function ProgressSquares({ current, total }: { current: number; total: number }) {
+  return (
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(0.55rem,1fr))] gap-1">
+      {Array.from({ length: total }, (_, index) => (
+        <span
+          key={index}
+          className={`progress-square aspect-square rounded-[0.18rem] ${
+            index + 1 === current
+              ? "progress-square-today"
+              : index < current
+                ? "progress-square-active"
+                : "progress-square-idle"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Projects({ repos }: { repos: RepoItem[] }) {
+  const timeProgress = getTimeProgress();
+
   return (
     <section id="projects" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <SectionHeader
@@ -78,31 +129,25 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
                 <p className="mt-1 text-sm leading-6 text-base-soft">自动展示 Bing 每日壁纸，作为首页的轻量视觉更新。</p>
               </div>
             </Link>
-            <Link
-              href="https://api.vvhan.com/api/60s"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group overflow-hidden rounded-3xl border border-white/70 bg-white/48 transition hover:bg-white/75"
-            >
-              <div className="bg-signal-blue/10 p-3">
-                <img
-                  src="https://api.vvhan.com/api/60s"
-                  alt="每天 60 秒新闻"
-                  className="mx-auto max-h-96 w-full rounded-2xl object-contain"
-                />
+            <div className="rounded-3xl border border-white/70 bg-white/48 p-4">
+              <div className="flex items-center gap-2 text-xs font-semibold text-signal-blue">
+                <CalendarDays className="size-4" />
+                Time Progress
               </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 text-xs font-semibold text-signal-blue">
-                  <Newspaper className="size-4" />
-                  Daily News
-                </div>
-                <p className="mt-2 font-semibold text-base-ink">每天 60 秒新闻</p>
-                <p className="mt-1 text-sm leading-6 text-base-soft">每日早报图片，适合快速浏览当天重点消息。</p>
-                <span className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-base-ink">
-                  打开早报 <ArrowUpRight className="size-3 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </span>
+              <p className="mt-2 font-semibold text-base-ink">时间进度</p>
+              <p className="mt-1 text-sm leading-6 text-base-soft">看看本周、本月和今年已经走到哪里。</p>
+              <div className="mt-5 grid gap-4">
+                {timeProgress.map((item) => (
+                  <div key={item.label} className="rounded-2xl border border-white/70 bg-white/45 p-3">
+                    <div className="mb-2 flex items-center justify-between gap-4">
+                      <span className="text-sm font-semibold text-base-ink">{item.label}</span>
+                      <span className="text-xs text-base-soft">{item.detail}</span>
+                    </div>
+                    <ProgressSquares current={item.current} total={item.total} />
+                  </div>
+                ))}
               </div>
-            </Link>
+            </div>
           </div>
         </div>
 
