@@ -19,6 +19,12 @@ export type RepoItem = {
   updatedAt: string;
 };
 
+const FETCH_TIMEOUT_MS = 3500;
+
+function withTimeout() {
+  return AbortSignal.timeout(FETCH_TIMEOUT_MS);
+}
+
 const mixinKeyEncTab = [
   46, 47, 18, 2, 53, 8, 23, 32, 15, 50, 10, 31, 58, 3, 45, 35, 27, 43, 5, 49,
   33, 9, 42, 19, 29, 28, 14, 39, 12, 38, 41, 13, 37, 48, 7, 16, 24, 55, 40, 61,
@@ -65,6 +71,7 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
     };
     const navResponse = await fetch("https://api.bilibili.com/x/web-interface/nav", {
       headers,
+      signal: withTimeout(),
       next: { revalidate: 3600 }
     });
     const nav = await navResponse.json();
@@ -94,7 +101,7 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
     const wRid = crypto.createHash("md5").update(query + mixinKey).digest("hex");
     const response = await fetch(
       `https://api.bilibili.com/x/space/wbi/arc/search?${query}&w_rid=${wRid}`,
-      { headers, next: { revalidate: 1800 } }
+      { headers, signal: withTimeout(), next: { revalidate: 1800 } }
     );
     const payload = await response.json();
     const list = payload?.data?.list?.vlist;
@@ -123,6 +130,7 @@ export async function getGithubRepos(): Promise<RepoItem[]> {
           accept: "application/vnd.github+json",
           "user-agent": "gy-digital-base"
         },
+        signal: withTimeout(),
         next: { revalidate: 3600 }
       }
     );

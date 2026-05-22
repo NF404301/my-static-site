@@ -57,13 +57,14 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
   const timeProgress = getTimeProgress();
 
   return (
-    <section id="projects" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <section id="projects" className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <SectionHeader
         eyebrow="Project System"
-        title="主站是门户，子域是功能舱。"
-        description="未来的扩展不挤在首页里，而是通过四个域名层级承载：主站聚合，Apple、Pan、Lab 分别深挖。"
+        title="主站是门厅，专区承载深度功能"
+        description="主站负责聚合和判断，Apple、网盘、博客等入口负责具体内容。后续扩展会继续沿着独立专区生长。"
       />
-      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
         {projectZones.map((project) => {
           const Icon = project.icon;
           const content = (
@@ -103,64 +104,63 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
         })}
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="glass-panel rounded-[2rem] p-6">
-          <h3 className="text-xl font-semibold text-base-ink">每日信息</h3>
-          <div className="mt-6 grid gap-4">
-            <Link
-              href="https://www.bing.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group overflow-hidden rounded-3xl border border-white/70 bg-white/48 transition hover:bg-white/75"
-            >
-              <div className="aspect-[16/9] overflow-hidden bg-signal-blue/10">
-                <img
-                  src="https://api.dujin.org/bing/1920.php"
-                  alt="Bing 每日一图"
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 text-xs font-semibold text-signal-blue">
-                  <ImageIcon className="size-4" />
-                  Daily Image
-                </div>
-                <p className="mt-2 font-semibold text-base-ink">每日一图</p>
-                <p className="mt-1 text-sm leading-6 text-base-soft">自动展示 Bing 每日壁纸，作为首页的轻量视觉更新。</p>
-              </div>
-            </Link>
-            <div className="rounded-3xl border border-white/70 bg-white/48 p-4">
-              <div className="flex items-center gap-2 text-xs font-semibold text-signal-blue">
-                <CalendarDays className="size-4" />
-                Time Progress
-              </div>
-              <p className="mt-2 font-semibold text-base-ink">时间进度</p>
-              <p className="mt-1 text-sm leading-6 text-base-soft">看看本周、本月和今年已经走到哪里。</p>
-              <div className="mt-5 grid gap-4">
-                {timeProgress.map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-white/70 bg-white/45 p-3">
-                    <div className="mb-2 flex items-center justify-between gap-4">
-                      <span className="text-sm font-semibold text-base-ink">{item.label}</span>
-                      <span className="text-xs text-base-soft">{item.detail}</span>
-                    </div>
-                    <ProgressSquares current={item.current} total={item.total} />
+      <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-base-ink">
+            <ImageIcon className="size-4 text-signal-blue" />
+            每日信息
+          </div>
+          <Link
+            href="https://www.bing.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block overflow-hidden rounded-[1.75rem] border border-base-line bg-white/48 shadow-inset backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/76"
+          >
+            <div className="aspect-[16/9] overflow-hidden bg-signal-blue/10">
+              <img
+                src="https://api.dujin.org/bing/1920.php"
+                alt="Bing 每日一图"
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-5">
+              <p className="font-semibold text-base-ink">每日一图</p>
+              <p className="mt-1 text-sm leading-6 text-base-soft">自动展示 Bing 每日壁纸，给首页保留一点轻量变化。</p>
+            </div>
+          </Link>
+
+          <div className="mt-4 rounded-[1.75rem] border border-base-line bg-white/48 p-5 shadow-inset backdrop-blur">
+            <div className="flex items-center gap-2 text-sm font-semibold text-base-ink">
+              <CalendarDays className="size-4 text-signal-blue" />
+              时间进度
+            </div>
+            <div className="mt-5 grid gap-4">
+              {timeProgress.map((item) => (
+                <div key={item.label}>
+                  <div className="mb-2 flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-base-ink">{item.label}</span>
+                    <span className="text-xs text-base-soft">{item.detail}</span>
                   </div>
-                ))}
-              </div>
+                  <ProgressSquares current={item.current} total={item.total} />
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="glass-panel rounded-[2rem] p-6">
-          <h3 className="text-xl font-semibold text-base-ink">GitHub 项目</h3>
-          <div className="mt-6 grid gap-4">
+        <div>
+          <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-base-ink">
+            <GitFork className="size-4 text-signal-blue" />
+            GitHub 项目
+          </div>
+          <div className="grid gap-3">
             {repos.map((repo) => (
               <Link
                 href={repo.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 key={repo.href}
-                className="group rounded-3xl border border-white/70 bg-white/48 p-4 transition hover:bg-white/75"
+                className="group rounded-[1.35rem] border border-base-line bg-white/48 p-4 shadow-inset backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/76"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -186,7 +186,7 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {principles.map((item) => {
           const Icon = item.icon;
           return (

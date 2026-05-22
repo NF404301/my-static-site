@@ -14,8 +14,8 @@ export default async function Home() {
     <main>
       <Header />
       <Hero />
-      <ContentMatrix />
       <LatestVideos videos={videos} />
+      <ContentMatrix />
       <UpdatesAndLab />
       <Community />
       <Projects repos={repos} />

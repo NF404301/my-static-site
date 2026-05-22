@@ -4,15 +4,19 @@ import { SectionHeader } from "@/components/SectionHeader";
 
 export function UpdatesAndLab() {
   return (
-    <section id="lab" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <SectionHeader
-        eyebrow="Build Log"
-        title="把折腾记录变成长期资产。"
-        description="最近更新与最近折腾分层展示：前者面向用户，后者面向未来扩展和项目沉淀。"
-      />
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
-        <Timeline title="最近更新" items={recentUpdates} />
-        <Timeline title="最近折腾" items={labNotes} />
+    <section id="lab" className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="rounded-[2rem] border border-base-line bg-white/32 p-5 shadow-inset backdrop-blur sm:p-8">
+        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <SectionHeader
+            eyebrow="Build Log"
+            title="更新与折腾记录分层展示"
+            description="近期更新面向访问者，实验记录面向后续扩展。两条线并排呈现，既能快速了解现状，也能看到主站未来会长出什么。"
+          />
+          <div className="grid gap-4 md:grid-cols-2">
+            <Timeline title="最近更新" items={recentUpdates} tone="blue" />
+            <Timeline title="最近折腾" items={labNotes} tone="green" />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -20,18 +24,22 @@ export function UpdatesAndLab() {
 
 function Timeline({
   title,
-  items
+  items,
+  tone
 }: {
   title: string;
   items: typeof recentUpdates;
+  tone: "blue" | "green";
 }) {
+  const dotClass = tone === "green" ? "bg-signal-green" : "bg-signal-blue";
+
   return (
-    <div className="glass-panel rounded-[2rem] p-6">
-      <h3 className="text-xl font-semibold text-base-ink">{title}</h3>
-      <div className="mt-6 grid gap-5">
+    <div className="rounded-[1.5rem] border border-white/70 bg-white/55 p-5 shadow-inset">
+      <h3 className="text-lg font-semibold text-base-ink">{title}</h3>
+      <div className="mt-5 grid gap-5">
         {items.map((item) => (
           <article key={item.title} className="relative border-l border-base-line pl-5">
-            <span className="absolute -left-[7px] top-1 grid size-3 place-items-center rounded-full bg-signal-blue ring-4 ring-white/70" />
+            <span className={`absolute -left-[7px] top-1 grid size-3 place-items-center rounded-full ${dotClass} ring-4 ring-white/80`} />
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-signal-blue/10 px-2.5 py-1 text-xs font-semibold text-signal-blue">
                 {item.tag}
