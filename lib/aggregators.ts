@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import bilibiliCache from "@/data/bilibili-videos.json";
 import { fallbackVideos, site } from "@/data/site";
 
 export type VideoItem = {
@@ -23,6 +24,21 @@ const FETCH_TIMEOUT_MS = 3500;
 
 function withTimeout() {
   return AbortSignal.timeout(FETCH_TIMEOUT_MS);
+}
+
+function getCachedBilibiliVideos(): VideoItem[] {
+  if (!Array.isArray(bilibiliCache.videos) || bilibiliCache.videos.length === 0) {
+    return fallbackVideos;
+  }
+
+  return bilibiliCache.videos.map((video) => ({
+    title: video.title,
+    description: video.description,
+    href: video.href,
+    publishedAt: video.publishedAt,
+    tag: video.tag,
+    views: "views" in video && typeof video.views === "string" ? video.views : undefined
+  }));
 }
 
 const mixinKeyEncTab = [
@@ -63,6 +79,32 @@ function formatCount(count?: number) {
   return `${count} 播放`;
 }
 
+function mapBilibiliVideos(list: any[]): VideoItem[] {
+  return list.slice(0, 6).map((item) => ({
+    title: item.title,
+    description: item.description || "来自 Bilibili 的最新公开内容。",
+    href: `https://www.bilibili.com/video/${item.bvid}/`,
+    publishedAt: formatDate(item.created),
+    tag: "Bilibili",
+    views: formatCount(item.play)
+  }));
+}
+
+async function getLegacyBilibiliVideos(headers: HeadersInit): Promise<VideoItem[]> {
+  const response = await fetch(
+    "https://api.bilibili.com/x/space/arc/search?mid=384557462&ps=30&tid=0&pn=1&order=click",
+    { headers, signal: withTimeout(), next: { revalidate: 1800 } }
+  );
+  const payload = await response.json();
+  const list = payload?.data?.list?.vlist;
+
+  if (!Array.isArray(list) || list.length === 0) return getCachedBilibiliVideos();
+
+  return mapBilibiliVideos(
+    list.sort((a, b) => Number(b.play || 0) - Number(a.play || 0))
+  );
+}
+
 export async function getBilibiliVideos(): Promise<VideoItem[]> {
   try {
     const headers = {
@@ -78,11 +120,11 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
     const imgUrl = nav?.data?.wbi_img?.img_url as string | undefined;
     const subUrl = nav?.data?.wbi_img?.sub_url as string | undefined;
 
-    if (!imgUrl || !subUrl) return fallbackVideos;
+    if (!imgUrl || !subUrl) return getLegacyBilibiliVideos(headers);
 
     const imgKey = imgUrl.match(/\/([^/]+)\.png$/)?.[1];
     const subKey = subUrl.match(/\/([^/]+)\.png$/)?.[1];
-    if (!imgKey || !subKey) return fallbackVideos;
+    if (!imgKey || !subKey) return getLegacyBilibiliVideos(headers);
 
     const mixinKey = getMixinKey(imgKey + subKey);
     const params = {
@@ -106,18 +148,11 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
     const payload = await response.json();
     const list = payload?.data?.list?.vlist;
 
-    if (!Array.isArray(list) || list.length === 0) return fallbackVideos;
+    if (!Array.isArray(list) || list.length === 0) return getLegacyBilibiliVideos(headers);
 
-    return list.slice(0, 6).map((item) => ({
-      title: item.title,
-      description: item.description || "来自 Bilibili 的最新公开内容。",
-      href: `https://www.bilibili.com/video/${item.bvid}/`,
-      publishedAt: formatDate(item.created),
-      tag: "Bilibili",
-      views: formatCount(item.play)
-    }));
+    return mapBilibiliVideos(list);
   } catch {
-    return fallbackVideos;
+    return getCachedBilibiliVideos();
   }
 }
 
