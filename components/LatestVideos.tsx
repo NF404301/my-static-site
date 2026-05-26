@@ -12,8 +12,8 @@ export function LatestVideos({ videos }: { videos: VideoItem[] }) {
         <div className="lg:sticky lg:top-24">
           <SectionHeader
             eyebrow="Latest Signal"
-            title="先看最新、最值得点开的内容"
-            description="首页把近期视频放到更靠前的位置，减少寻找成本；如果 B 站接口受限，会自动展示精选内容。"
+            title="先看最新教程和推荐内容"
+            description="这里展示近期视频和精选教程，适合第一次访问时快速了解最新更新，也方便老朋友直接跳到 B 站继续观看。"
           />
           <Link
             href="https://space.bilibili.com/384557462"

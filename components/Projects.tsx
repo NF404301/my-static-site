@@ -60,11 +60,11 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
     <section id="projects" className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <SectionHeader
         eyebrow="Project System"
-        title="主站是门厅，专区承载深度功能"
-        description="主站负责聚合和判断，Apple、网盘、博客等入口负责具体内容。后续扩展会继续沿着独立专区生长。"
+        title="常用专区和资料入口"
+        description="这里汇总 Apple 专区、教程下载、网盘资料和博客入口。需要长期保存或反复查看的内容，都可以从这里进入。"
       />
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
+      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {projectZones.map((project) => {
           const Icon = project.icon;
           const content = (
@@ -125,7 +125,7 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
             </div>
             <div className="p-5">
               <p className="font-semibold text-base-ink">每日一图</p>
-              <p className="mt-1 text-sm leading-6 text-base-soft">自动展示 Bing 每日壁纸，给首页保留一点轻量变化。</p>
+              <p className="mt-1 text-sm leading-6 text-base-soft">每日更新一张壁纸，给访问首页时留一点轻松变化。</p>
             </div>
           </Link>
 

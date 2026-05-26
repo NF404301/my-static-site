@@ -4,10 +4,10 @@ import { ArrowUpRight, Github, Orbit, PlayCircle, Radio, Sparkles } from "lucide
 import { site } from "@/data/site";
 
 const heroChannels = [
-  ["Bilibili", "教程、工具体验、实操演示", "42%"],
-  ["Apple / iOS", "资源索引、折腾记录", "29%"],
-  ["AI / VPS", "自动化、部署实验", "18%"],
-  ["Community", "TG / QQ 交流入口", "11%"]
+  ["Bilibili", "观看教程和实操演示", "42%"],
+  ["Apple / iOS", "查找资源与工具入口", "29%"],
+  ["AI / VPS", "了解自动化和部署玩法", "18%"],
+  ["Community", "加入频道和群组交流", "11%"]
 ];
 
 const quickLinks = [
@@ -33,7 +33,7 @@ export function Hero() {
             GY念六的数字基地
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-9 text-base-soft">
-            把视频教程、Apple/iOS 资源、AI 自动化、VPS 部署和社区入口收束到一个清晰的主站。你可以从这里快速进入最新内容，也可以顺着主题找到更深的专区。
+            这里整理了视频教程、Apple/iOS 资源、AI 工具、VPS 部署和交流入口。来访者可以先看最新内容，也可以按主题进入对应专区。
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -116,9 +116,9 @@ export function Hero() {
             <div className="flex items-start gap-3">
               <Sparkles className="mt-1 size-5 text-signal-blue" />
               <div>
-                <p className="font-semibold text-base-ink">主站只做清晰入口</p>
+                <p className="font-semibold text-base-ink">主站展示各端入口</p>
                 <p className="mt-1 text-sm leading-6 text-base-soft">
-                  最新动态放前面，沉淀内容分到专区，社区入口保持轻量，避免首页变成链接堆叠。
+                  视频、社区、项目和专题专区都放在首页，方便新朋友快速找到需要的内容。
                 </p>
               </div>
             </div>

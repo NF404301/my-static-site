@@ -9,8 +9,8 @@ export function UpdatesAndLab() {
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
           <SectionHeader
             eyebrow="Build Log"
-            title="更新与折腾记录分层展示"
-            description="近期更新面向访问者，实验记录面向后续扩展。两条线并排呈现，既能快速了解现状，也能看到主站未来会长出什么。"
+            title="最近更新和正在整理的内容"
+            description="这里记录网站新增入口、教程整理和后续计划。来访者可以快速判断哪些内容刚更新，哪些资源还在持续补充。"
           />
           <div className="grid gap-4 md:grid-cols-2">
             <Timeline title="最近更新" items={recentUpdates} tone="blue" />

@@ -10,8 +10,8 @@ export function Community() {
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <SectionHeader
             eyebrow="Community Layer"
-            title="社区作为内容回声层"
-            description="频道负责广播，群组负责讨论，QQ 群照顾国内用户。首页保留清晰入口，让实时信息回到更合适的位置流动。"
+            title="加入社区，获取后续更新"
+            description="想接收资源更新可以进频道，想提问交流可以进群组，国内用户也可以通过 QQ 群快速联系。"
           />
           <div className="grid gap-4 sm:grid-cols-3">
             {communities.map((item) => {

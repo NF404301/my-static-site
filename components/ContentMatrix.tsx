@@ -9,11 +9,11 @@ export function ContentMatrix() {
       <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
         <SectionHeader
           eyebrow="Content Matrix"
-          title="按内容职责，而不是按链接堆叠"
-          description="四个平台各自承担不同任务：视频负责深度教程，图文负责轻量记录，频道负责实时更新，GitHub 负责项目和代码。"
+          title="按你的需求选择入口"
+          description="想看教程、找资源、追更新或查看项目，都可以从这里进入对应平台。每个入口都标明用途，减少来回寻找。"
         />
         <div className="rounded-[1.75rem] border border-base-line bg-white/38 p-5 text-sm leading-7 text-base-soft shadow-inset backdrop-blur">
-          主站负责总览和分流，长期内容会逐步沉淀到 Apple、Pan、Lab 等专题空间，保持首页清爽。
+          不同平台内容会持续更新：首页负责帮你判断去哪看，专题页负责沉淀长期资料和常用工具。
         </div>
       </div>
 
