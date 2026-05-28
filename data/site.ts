@@ -69,7 +69,7 @@ export const site = {
 export const navigation = [
   { title: "生态", href: "#matrix" },
   { title: "更新", href: "#updates" },
-  { title: "折腾", href: "#lab" },
+  { title: "WebWord", href: "#lab" },
   { title: "社区", href: "#community" },
   { title: "项目", href: "#projects" }
 ];

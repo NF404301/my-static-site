@@ -1,59 +1,77 @@
-import { Clock3 } from "lucide-react";
-import { labNotes, recentUpdates } from "@/data/site";
+import Link from "next/link";
+import { ArrowUpRight, Bookmark, Globe2, Send, Sparkles } from "lucide-react";
 import { SectionHeader } from "@/components/SectionHeader";
+
+const webwordCards = [
+  {
+    title: "收藏内容",
+    description: "把值得反复查看的网站、工具和资料整理到一个固定入口。",
+    icon: Bookmark
+  },
+  {
+    title: "转发分享",
+    description: "适合把常用内容快速发给朋友、客户或社区成员。",
+    icon: Send
+  },
+  {
+    title: "了解数字世界",
+    description: "围绕工具、资源、教程和数字生活内容持续补充。",
+    icon: Sparkles
+  }
+];
 
 export function UpdatesAndLab() {
   return (
     <section id="lab" className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="rounded-[2rem] border border-base-line bg-white/32 p-5 shadow-inset backdrop-blur sm:p-8">
-        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <SectionHeader
-            eyebrow="Build Log"
-            title="最近更新和正在整理的内容"
-            description="这里记录网站新增入口、教程整理和后续计划。来访者可以快速判断哪些内容刚更新，哪些资源还在持续补充。"
+            eyebrow="WebWord"
+            title="收藏和转发的内容入口"
+            description="WebWord 用来集中展示值得收藏、转发和继续阅读的数字内容。来访者可以直接进入站点，浏览工具、资源和教程相关信息。"
           />
-          <div className="grid gap-4 md:grid-cols-2">
-            <Timeline title="最近更新" items={recentUpdates} tone="blue" />
-            <Timeline title="最近折腾" items={labNotes} tone="green" />
+          <div className="grid gap-4">
+            <div className="overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/55 shadow-inset">
+              <div className="flex items-center justify-between gap-4 border-b border-base-line/70 px-5 py-4">
+                <div className="flex items-center gap-2 text-sm font-semibold text-base-ink">
+                  <Globe2 className="size-4 text-signal-blue" />
+                  webword.vercel.app
+                </div>
+                <Link
+                  href="https://webword.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-signal-blue"
+                >
+                  打开网站
+                  <ArrowUpRight className="size-4" />
+                </Link>
+              </div>
+              <div className="aspect-[16/10] bg-white">
+                <iframe
+                  src="https://webword.vercel.app/"
+                  title="WebWord 网站预览"
+                  loading="lazy"
+                  className="h-full w-full border-0"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-3">
+              {webwordCards.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="rounded-[1.35rem] border border-white/70 bg-white/55 p-4 shadow-inset">
+                    <Icon className="size-5 text-signal-blue" />
+                    <h3 className="mt-4 font-semibold text-base-ink">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-base-soft">{item.description}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function Timeline({
-  title,
-  items,
-  tone
-}: {
-  title: string;
-  items: typeof recentUpdates;
-  tone: "blue" | "green";
-}) {
-  const dotClass = tone === "green" ? "bg-signal-green" : "bg-signal-blue";
-
-  return (
-    <div className="rounded-[1.5rem] border border-white/70 bg-white/55 p-5 shadow-inset">
-      <h3 className="text-lg font-semibold text-base-ink">{title}</h3>
-      <div className="mt-5 grid gap-5">
-        {items.map((item) => (
-          <article key={item.title} className="relative border-l border-base-line pl-5">
-            <span className={`absolute -left-[7px] top-1 grid size-3 place-items-center rounded-full ${dotClass} ring-4 ring-white/80`} />
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-signal-blue/10 px-2.5 py-1 text-xs font-semibold text-signal-blue">
-                {item.tag}
-              </span>
-              <span className="inline-flex items-center gap-1 text-xs text-base-soft">
-                <Clock3 className="size-3" />
-                {item.date}
-              </span>
-            </div>
-            <h4 className="mt-3 font-semibold text-base-ink">{item.title}</h4>
-            <p className="mt-2 text-sm leading-6 text-base-soft">{item.summary}</p>
-          </article>
-        ))}
-      </div>
-    </div>
   );
 }
