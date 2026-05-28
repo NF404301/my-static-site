@@ -26,6 +26,16 @@ function withTimeout() {
   return AbortSignal.timeout(FETCH_TIMEOUT_MS);
 }
 
+async function readJson(response: Response) {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (!response.ok || !contentType.includes("application/json")) {
+    throw new Error(`Expected JSON response, got ${response.status} ${contentType || "unknown content type"}`);
+  }
+
+  return response.json();
+}
+
 function getCachedBilibiliVideos(): VideoItem[] {
   if (!Array.isArray(bilibiliCache.videos) || bilibiliCache.videos.length === 0) {
     return fallbackVideos;
@@ -95,7 +105,7 @@ async function getLegacyBilibiliVideos(headers: HeadersInit): Promise<VideoItem[
     "https://api.bilibili.com/x/space/arc/search?mid=384557462&ps=30&tid=0&pn=1&order=click",
     { headers, signal: withTimeout(), next: { revalidate: 1800 } }
   );
-  const payload = await response.json();
+  const payload = await readJson(response);
   const list = payload?.data?.list?.vlist;
 
   if (!Array.isArray(list) || list.length === 0) return getCachedBilibiliVideos();
@@ -116,15 +126,15 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
       signal: withTimeout(),
       next: { revalidate: 3600 }
     });
-    const nav = await navResponse.json();
+    const nav = await readJson(navResponse);
     const imgUrl = nav?.data?.wbi_img?.img_url as string | undefined;
     const subUrl = nav?.data?.wbi_img?.sub_url as string | undefined;
 
-    if (!imgUrl || !subUrl) return getLegacyBilibiliVideos(headers);
+    if (!imgUrl || !subUrl) return await getLegacyBilibiliVideos(headers);
 
     const imgKey = imgUrl.match(/\/([^/]+)\.png$/)?.[1];
     const subKey = subUrl.match(/\/([^/]+)\.png$/)?.[1];
-    if (!imgKey || !subKey) return getLegacyBilibiliVideos(headers);
+    if (!imgKey || !subKey) return await getLegacyBilibiliVideos(headers);
 
     const mixinKey = getMixinKey(imgKey + subKey);
     const params = {
@@ -145,10 +155,10 @@ export async function getBilibiliVideos(): Promise<VideoItem[]> {
       `https://api.bilibili.com/x/space/wbi/arc/search?${query}&w_rid=${wRid}`,
       { headers, signal: withTimeout(), next: { revalidate: 1800 } }
     );
-    const payload = await response.json();
+    const payload = await readJson(response);
     const list = payload?.data?.list?.vlist;
 
-    if (!Array.isArray(list) || list.length === 0) return getLegacyBilibiliVideos(headers);
+    if (!Array.isArray(list) || list.length === 0) return await getLegacyBilibiliVideos(headers);
 
     return mapBilibiliVideos(list);
   } catch {
@@ -169,7 +179,7 @@ export async function getGithubRepos(): Promise<RepoItem[]> {
         next: { revalidate: 3600 }
       }
     );
-    const repos = await response.json();
+    const repos = await readJson(response);
 
     if (!Array.isArray(repos)) return fallbackRepos;
 
