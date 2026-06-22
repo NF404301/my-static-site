@@ -3,59 +3,9 @@ import { ArrowUpRight, CalendarDays, GitFork, Image as ImageIcon, Star } from "l
 import { principles, projectZones } from "@/data/site";
 import type { RepoItem } from "@/lib/aggregators";
 import { SectionHeader } from "@/components/SectionHeader";
-
-function getTimeProgress() {
-  const now = new Date();
-  const dayOfWeek = now.getDay() || 7;
-  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-  const startOfYear = new Date(now.getFullYear(), 0, 1);
-  const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / 86400000) + 1;
-  const daysInYear = new Date(now.getFullYear(), 1, 29).getMonth() === 1 ? 366 : 365;
-
-  return [
-    {
-      label: "本周",
-      current: dayOfWeek,
-      total: 7,
-      detail: `已过 ${dayOfWeek} / 7 天`
-    },
-    {
-      label: "本月",
-      current: now.getDate(),
-      total: daysInMonth,
-      detail: `已过 ${now.getDate()} / ${daysInMonth} 天`
-    },
-    {
-      label: "今年",
-      current: dayOfYear,
-      total: daysInYear,
-      detail: `已过 ${dayOfYear} / ${daysInYear} 天`
-    }
-  ];
-}
-
-function ProgressSquares({ current, total }: { current: number; total: number }) {
-  return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(0.55rem,1fr))] gap-1">
-      {Array.from({ length: total }, (_, index) => (
-        <span
-          key={index}
-          className={`progress-square aspect-square rounded-[0.18rem] ${
-            index + 1 === current
-              ? "progress-square-today"
-              : index < current
-                ? "progress-square-active"
-                : "progress-square-idle"
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
+import { TimeProgress } from "@/components/TimeProgress";
 
 export function Projects({ repos }: { repos: RepoItem[] }) {
-  const timeProgress = getTimeProgress();
-
   return (
     <section id="projects" className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <SectionHeader
@@ -134,16 +84,8 @@ export function Projects({ repos }: { repos: RepoItem[] }) {
               <CalendarDays className="size-4 text-signal-blue" />
               时间进度
             </div>
-            <div className="mt-5 grid gap-4">
-              {timeProgress.map((item) => (
-                <div key={item.label}>
-                  <div className="mb-2 flex items-center justify-between gap-4">
-                    <span className="text-sm font-semibold text-base-ink">{item.label}</span>
-                    <span className="text-xs text-base-soft">{item.detail}</span>
-                  </div>
-                  <ProgressSquares current={item.current} total={item.total} />
-                </div>
-              ))}
+            <div className="mt-5">
+              <TimeProgress />
             </div>
           </div>
         </div>
