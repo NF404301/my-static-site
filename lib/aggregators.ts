@@ -202,7 +202,7 @@ export async function getGithubRepos(): Promise<RepoItem[]> {
 export const fallbackRepos: RepoItem[] = [
   {
     title: "my-static-site",
-    description: "Digital Base 的前身，正在迁移为 Next.js 创作者门户。",
+    description: "GY念六数字主页，汇集实用教程、资源与公开项目。",
     href: "https://github.com/NF404301/my-static-site",
     language: "Next.js",
     stars: 0,
